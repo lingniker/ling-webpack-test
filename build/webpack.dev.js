@@ -26,7 +26,7 @@ webpack(config,(err)=>{
 
 var server = new WebpackDevServe(webpack(config));
 
-server.listen("8004","localhost",function(err){
+server.listen("8004","0.0.0.0",function(err){
   if(err){
     console.log(err);
   } else {
