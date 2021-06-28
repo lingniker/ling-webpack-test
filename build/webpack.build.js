@@ -3,6 +3,9 @@ var webpack = require("webpack");
 
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 var config = {
   mode: "development",
   entry: {
@@ -10,7 +13,7 @@ var config = {
   },
   output: {
     path: path.resolve(process.cwd(), "./dist/"),
-    filename: 'index2.js',
+    filename: 'index.js',
     environment: {
       arrowFunction: false
     }
@@ -26,7 +29,15 @@ var config = {
           ],
           plugins:['@babel/plugin-transform-runtime']   
         }
-      }
+      },
+      {
+        test: /\.(scss|css)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ]
+      },
     ]
   },
   plugins: [
@@ -34,6 +45,9 @@ var config = {
       template: './index.html',
       filename: './index.html',
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash:7].css'
+    })
   ]
 }
 
